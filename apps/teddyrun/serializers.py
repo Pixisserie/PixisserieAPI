@@ -10,9 +10,10 @@ class RunScoreSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'score', 'username']
     
     def update(self, instance, validated_data):
-        instance.score = validated_data.get('score', instance.score)
-        instance.user = validated_data.get('user', instance.user)
-        instance.save()
+        if instance.score < validated_data.get('score', instance.score):
+            instance.score = validated_data.get('score', instance.score)
+            instance.user = validated_data.get('user', instance.user)
+            instance.save()
         return instance
     
     def get_username(self, obj):
