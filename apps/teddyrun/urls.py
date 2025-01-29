@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import score_create_or_update
+from . import views
 
 urlpatterns = [
-    path('score/', score_create_or_update, name='teddyrun-score-update'),
+    path('score/', views.score_create_or_update, name='teddyrun-score-update'),
+    path('rank/', views.score_ranking, name='teddyrun-rank'),
 ]

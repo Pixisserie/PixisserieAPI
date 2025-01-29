@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Score
 from .serializers import RunScoreSerializer
 from rest_framework.exceptions import ValidationError
@@ -28,3 +28,10 @@ def score_create_or_update(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def score_ranking(request):
+    scores = Score.objects.all().order_by('-score')
+    serializer = RunScoreSerializer(scores, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
