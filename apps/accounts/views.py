@@ -15,6 +15,22 @@ logger = logging.getLogger("accounts.views")
 User = get_user_model()
 
 @permission_classes([AllowAny])
+class CheckUsernameView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        username = request.query_params.get('username')
+        
+        if not username:
+            return Response({"error": "username을 입력해주세요."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        is_exist = User.objects.filter(username=username).exists()
+
+        if is_exist:
+            return Response({"available": False, "message": "해당 유저네임이 이미 존재합니다."}, status=status.HTTP_200_OK)
+        else:
+            return Response({"available": True, "message": "유저네임 설정 가능"}, status=status.HTTP_200_OK)
+
+@permission_classes([AllowAny])
 class SignupView(APIView):
     def post(self, request):
         serializer = SignupSerializer(data=request.data)
