@@ -70,5 +70,5 @@ class LoginView(APIView):
             return Response({'message': 'The username or password does not match'}, status=status.HTTP_400_BAD_REQUEST)
         refresh = RefreshToken.for_user(user)
         return Response({'username': str(user.username),
-                        'refresh_token': str(refresh),
-                        'access_token': str(refresh.access_token)}, status=status.HTTP_200_OK)
+                        'refresh': str(refresh),
+                        'access': str(refresh.access_token)}, status=status.HTTP_200_OK)
