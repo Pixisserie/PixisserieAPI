@@ -14,7 +14,7 @@ import os, environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(DEBUG=(bool, True))
 
@@ -27,7 +27,7 @@ SECRET_KEY = env('PROD_SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '(pythonanywhere ID).pythonanywhere.com', 
+    'cruasannn.pythonanywhere.com', 
     '127.0.0.1',
     'localhost',
 ]
